@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoresG8.API", "StoresG8.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoresG8.WEB", "StoresG8.WEB\StoresG8.WEB.csproj", "{52FD81F1-B7F4-4BFA-ABE2-2C9918B47043}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoresG8.Shared", "StoresG8.Shared\StoresG8.Shared.csproj", "{D8DA91CB-975C-4E29-9D48-8610857411DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoresG8.Shared", "StoresG8.Shared\StoresG8.Shared.csproj", "{D8DA91CB-975C-4E29-9D48-8610857411DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
