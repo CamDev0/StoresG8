@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stores.Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +17,16 @@ namespace StoresG8.Shared.Entities
         [MaxLength(100, ErrorMessage = "Cuidado el campo {0} no permite más de {1} caracteres ")]  //{1}
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Name { get; set; } = null;
+
+        public ICollection<State>? States { get; set; }
+
+        //Contamos  Estados por Pais
+
+        [Display(Name = "Estados/Departamentos")]
+        public int StatesNumber => States == null ? 0 : States.Count;
+
+
+
 
 
     }

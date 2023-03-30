@@ -1,17 +1,18 @@
 ﻿@page "/countries"
-@using StoresG8.WEB.Repositories;
-@using StoresG8.Shared.Entities;
+@inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
 
-
-@inject IRepository repository
-
-<h1>Paises</h1>
+<h3>Paises</h3>
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/countries/create">Nuevo País</a>
+    <a class="btn btn-primary" href="/countries/create">Adicionar País</a>
 </div>
+
+
+
+
+
 
 <GenericList MyList="Countries">
 
@@ -28,8 +29,8 @@
                 {
                     <tr>
                         <td>
-                            <a href="/countries/edit/@country.Id" class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(country))>Borrar</button>
+                            <a href="/countries/edit/@country.Id" class="btn btn-warning"><i class="oi oi-pencil" />Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(country))> <i class="oi oi-trash" /> Borrar</button>
 
                         </td>
                         <td>
@@ -43,6 +44,7 @@
     </Body>
 
 </GenericList>
+
 
 @code {
     public List<Country>? Countries { get; set; }
