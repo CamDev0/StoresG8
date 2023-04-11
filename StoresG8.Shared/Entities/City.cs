@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Stores.Shared.Entities
+namespace StoresG8.Shared.Entities
 {
     public class City
     {

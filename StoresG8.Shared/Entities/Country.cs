@@ -1,4 +1,4 @@
-﻿using Stores.Shared.Entities;
+﻿using StoresG8.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

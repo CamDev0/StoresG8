@@ -20,22 +20,31 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th></th>
+                   
                     <th>País</th>
+                    <th>Departamentos/Estados</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var country in Countries!)
                 {
                     <tr>
+                       
                         <td>
+                            @country.Name
+                        </td>
+
+                        <td>
+                            @country.StatesNumber
+                        </td>
+                        <td>
+                            <a href="/countries/details/@country.Id" class="btn btn-info">Detalles</a>
                             <a href="/countries/edit/@country.Id" class="btn btn-warning"><i class="oi oi-pencil" />Editar</a>
                             <button class="btn btn-danger" @onclick=@(() => Delete(country))> <i class="oi oi-trash" /> Borrar</button>
 
                         </td>
-                        <td>
-                            @country.Name
-                        </td>
+
                     </tr>
                 }
             </tbody>

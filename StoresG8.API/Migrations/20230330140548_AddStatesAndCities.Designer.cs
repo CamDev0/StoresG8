@@ -11,8 +11,8 @@ using StoresG8.API.Data;
 namespace StoresG8.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230330030621_StatesWithCities")]
-    partial class StatesWithCities
+    [Migration("20230330140548_AddStatesAndCities")]
+    partial class AddStatesAndCities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

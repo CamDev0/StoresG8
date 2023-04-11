@@ -24,9 +24,25 @@ namespace StoresG8.API.Controllers
         [HttpGet]
         public async Task<ActionResult> Get() {
 
-            return Ok(await _context.Countries.ToListAsync());
+            return Ok(await _context.Countries
 
-        }                                    
+                .Include(x => x.States)
+                .ToListAsync());
+
+        }
+
+        [HttpGet("full")]
+        public async Task<ActionResult> GetFull()
+        {
+            return Ok(await _context.Countries
+                .Include(x => x.States!)
+                .ThenInclude(x => x.Cities)
+                .ToListAsync());
+        }
+
+
+
+
 
         //´Método GET con parámetro
 
@@ -34,7 +50,11 @@ namespace StoresG8.API.Controllers
         public async Task<ActionResult> Get(int id)
         {
 
-            var country = await _context.Countries.FirstOrDefaultAsync(x => x.Id == id);
+            var country = await _context.Countries
+                
+                .Include (x => x.States)
+                .ThenInclude (x => x.Cities)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (country is null)
             {
                 return NotFound(); //404

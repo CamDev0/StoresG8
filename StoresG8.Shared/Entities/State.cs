@@ -1,7 +1,7 @@
 ﻿using StoresG8.Shared.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace Stores.Shared.Entities
+namespace StoresG8.Shared.Entities
 {
     public class State
     {
@@ -21,7 +21,7 @@ namespace Stores.Shared.Entities
 
         //Contamos ciudades por pais
 
-        [Display(Name = "Ciudades")]
+        [Display(Name = "Ciudades/Municipios")]
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
 
     }
