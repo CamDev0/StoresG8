@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoresG8.Shared.Entities;
-using StoresG8.Shared.Entities;
+
 
 namespace StoresG8.API.Data
 {

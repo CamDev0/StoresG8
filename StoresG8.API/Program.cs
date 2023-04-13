@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Stores.API.Services;
 using StoresG8.API.Data;
+using StoresG8.API.Services.Stores.API.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext > (x => x.UseSqlServer("name=DefaultConnection"));
 
 builder.Services.AddTransient<SeedDb>();
-
+builder.Services.AddScoped<IApiService, ApiService>();
 
 
 var app = builder.Build();

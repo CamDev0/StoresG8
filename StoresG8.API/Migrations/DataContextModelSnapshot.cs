@@ -21,7 +21,7 @@ namespace StoresG8.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Stores.Shared.Entities.City", b =>
+            modelBuilder.Entity("StoresG8.Shared.Entities.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,28 @@ namespace StoresG8.API.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Stores.Shared.Entities.State", b =>
+            modelBuilder.Entity("StoresG8.Shared.Entities.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("StoresG8.Shared.Entities.State", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,30 +90,9 @@ namespace StoresG8.API.Migrations
                     b.ToTable("States");
                 });
 
-            modelBuilder.Entity("StoresG8.Shared.Entities.Country", b =>
+            modelBuilder.Entity("StoresG8.Shared.Entities.City", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("Stores.Shared.Entities.City", b =>
-                {
-                    b.HasOne("Stores.Shared.Entities.State", "State")
+                    b.HasOne("StoresG8.Shared.Entities.State", "State")
                         .WithMany("Cities")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -101,7 +101,7 @@ namespace StoresG8.API.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("Stores.Shared.Entities.State", b =>
+            modelBuilder.Entity("StoresG8.Shared.Entities.State", b =>
                 {
                     b.HasOne("StoresG8.Shared.Entities.Country", "Country")
                         .WithMany("States")
@@ -112,14 +112,14 @@ namespace StoresG8.API.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Stores.Shared.Entities.State", b =>
-                {
-                    b.Navigation("Cities");
-                });
-
             modelBuilder.Entity("StoresG8.Shared.Entities.Country", b =>
                 {
                     b.Navigation("States");
+                });
+
+            modelBuilder.Entity("StoresG8.Shared.Entities.State", b =>
+                {
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }
