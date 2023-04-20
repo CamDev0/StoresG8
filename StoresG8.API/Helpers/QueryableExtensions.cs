@@ -1,7 +1,7 @@
 ﻿
 using StoresG8.Shared.DTOs;
 
-namespace Sales.API.Helpers
+namespace StoresG8.API.Helpers
 {
     public static class QueryableExtensions
     {

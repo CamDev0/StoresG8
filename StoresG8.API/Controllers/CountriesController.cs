@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Sales.API.Helpers;
+
 using StoresG8.API.Data;
+using StoresG8.API.Helpers;
 using StoresG8.Shared.DTOs;
 using StoresG8.Shared.Entities;
 
