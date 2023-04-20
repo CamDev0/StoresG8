@@ -22,13 +22,13 @@ namespace StoresG8.API.Data
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
-            //await CheckCountriesAsync();
+            await CheckCountriesAsync();
         }
 
         private async Task CheckCountriesAsync()
         {
-            //if (!_context.Countries.Any())
-            //{
+            if (!_context.Countries.Any())
+            {
 
 
                 Response responseCountries = await _apiService.GetListAsync<CountryResponse>("/v1", "/countries");
@@ -57,10 +57,10 @@ namespace StoresG8.API.Data
                                             List<CityResponse> cities = (List<CityResponse>)responseCities.Result!;
                                             foreach (CityResponse cityResponse in cities)
                                             {
-                                                //if (cityResponse.Name == "Mosfellsbær" || cityResponse.Name == "Șăulița")
-                                                //{
-                                                //    continue;
-                                                //}
+                                                if (cityResponse.Name == "Mosfellsbær" || cityResponse.Name == "Șăulița")
+                                                {
+                                                    continue;
+                                                }
                                                 City city = state.Cities!.FirstOrDefault(c => c.Name == cityResponse.Name!)!;
                                                 if (city == null)
                                                 {
@@ -91,7 +91,7 @@ namespace StoresG8.API.Data
 
 
 
-        //}
+        }
 
     }
 }

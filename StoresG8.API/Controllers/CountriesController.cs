@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Sales.API.Helpers;
 using StoresG8.API.Data;
+using StoresG8.Shared.DTOs;
 using StoresG8.Shared.Entities;
 
 namespace StoresG8.API.Controllers
@@ -22,13 +24,24 @@ namespace StoresG8.API.Controllers
         //Método GET LIST
 
         [HttpGet]
-        public async Task<ActionResult> Get() {
-
-            return Ok(await _context.Countries
-
+        public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+        {
+            var queryable = _context.Countries
                 .Include(x => x.States)
-                .ToListAsync());
+                .AsQueryable();
 
+
+
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
+            {
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+
+            return Ok(await queryable
+                .OrderBy(x => x.Name)
+                .Paginate(pagination)
+                .ToListAsync());
         }
 
         [HttpGet("full")]
@@ -38,6 +51,24 @@ namespace StoresG8.API.Controllers
                 .Include(x => x.States!)
                 .ThenInclude(x => x.Cities)
                 .ToListAsync());
+        }
+
+
+        [HttpGet("totalPages")]
+        public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
+        {
+            var queryable = _context.Countries.AsQueryable();
+
+
+
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
+            {
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+            double count = await queryable.CountAsync();
+            double totalPages = Math.Ceiling(count / pagination.RecordsNumber);
+            return Ok(totalPages);
         }
 
 
