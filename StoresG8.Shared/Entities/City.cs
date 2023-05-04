@@ -1,19 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace StoresG8.Shared.Entities
-{
-    public class City
+
+    using System.ComponentModel.DataAnnotations;
+
+    namespace StoresG8.Shared.Entities
     {
-        public int Id { get; set; }
+        public class City
+        {
+            public int Id { get; set; }
 
-        [Display(Name = "Ciudad")]
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Name { get; set; } = null!;
+            [Display(Name = "Ciudad")]
+            [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+            [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+            public string Name { get; set; } = null!;
 
-        public int StateId { get; set; }
+            public int StateId { get; set; }
 
+            public State? State { get; set; }
 
-        public State? State { get; set; }
+            public ICollection<User>? Users { get; set; }
+        }
     }
-}
+
+
+

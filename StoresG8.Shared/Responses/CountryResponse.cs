@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoresG8.Shared.Responses
-{
+
     using Newtonsoft.Json;
 
-    namespace Stores.Shared.Responses
+    namespace StoresG8.Shared.Responses
     {
         public class CountryResponse
         {
@@ -23,4 +22,4 @@ namespace StoresG8.Shared.Responses
         }
 
     }
-}
+

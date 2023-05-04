@@ -1,11 +1,13 @@
 ﻿
 using StoresG8.Shared.Entities;
-using StoresG8.API.Data;
-using StoresG8.API.Services;
-using StoresG8.API.Services.Stores.API.Services;
+
+
 using Microsoft.EntityFrameworkCore;
-using StoresG8.Shared.Responses.Stores.Shared.Responses;
+
 using StoresG8.Shared.Responses;
+using StoresG8.API.Helpers;
+using StoresG8.Shared.Enums;
+using StoresG8.API.Services;
 
 namespace StoresG8.API.Data
 {
@@ -13,24 +15,62 @@ namespace StoresG8.API.Data
     {
         private readonly DataContext _context;
         private readonly IApiService _apiService;
-        public SeedDb(DataContext context, IApiService apiService)
+        private readonly IUserHelper _userHelper;
+
+        public SeedDb(DataContext context, IApiService apiService, IUserHelper userHelper)
         {
             _context = context;
             _apiService = apiService;
+            _userHelper = userHelper;
         }
 
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
-            await CheckCountriesAsync();
+            //await CheckCountriesAsync();
+            await CheckRolesAsync();
+            await CheckUserAsync("123", "admin", "super", "oap@yopmail.com", "300666666", "Cualquier cosa", UserType.Admin);
+
+
+
+
         }
+        private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string phone, string address, UserType userType)
+        {
+            var user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                user = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    UserName = email,
+                    PhoneNumber = phone,
+                    Address = address,
+                    Document = document,
+                    City = _context.Cities.FirstOrDefault(),
+                    UserType = userType,
+                };
+
+                await _userHelper.AddUserAsync(user, "123456");
+                await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+            }
+
+            return user;
+        }
+
+        private async Task CheckRolesAsync()
+        {
+            await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
+            await _userHelper.CheckRoleAsync(UserType.User.ToString());
+        }
+
 
         private async Task CheckCountriesAsync()
         {
             if (!_context.Countries.Any())
             {
-
-
                 Response responseCountries = await _apiService.GetListAsync<CountryResponse>("/v1", "/countries");
                 if (responseCountries.IsSuccess)
                 {
@@ -57,10 +97,10 @@ namespace StoresG8.API.Data
                                             List<CityResponse> cities = (List<CityResponse>)responseCities.Result!;
                                             foreach (CityResponse cityResponse in cities)
                                             {
-                                                if (cityResponse.Name == "Mosfellsbær" || cityResponse.Name == "Șăulița")
-                                                {
-                                                    continue;
-                                                }
+                                                //if (cityResponse.Name == "Mosfellsbær" || cityResponse.Name == "Șăulița")
+                                                //{
+                                                //    continue;
+                                                //}
                                                 City city = state.Cities!.FirstOrDefault(c => c.Name == cityResponse.Name!)!;
                                                 if (city == null)
                                                 {
@@ -84,14 +124,6 @@ namespace StoresG8.API.Data
                     }
                 }
             }
-
-
-
-
-
-
-
         }
-
     }
 }

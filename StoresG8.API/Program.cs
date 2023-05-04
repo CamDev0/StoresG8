@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Stores.API.Services;
+using StoresG8.API.Services;
 using StoresG8.API.Data;
-using StoresG8.API.Services.Stores.API.Services;
+using StoresG8.API.Helpers;
+using StoresG8.Shared.Entities;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +24,25 @@ builder.Services.AddDbContext<DataContext > (x => x.UseSqlServer("name=DefaultCo
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IApiService, ApiService>();
 
+builder.Services.AddIdentity<User, IdentityRole>(x =>
+{
+    x.User.RequireUniqueEmail = true;
+    x.Password.RequireDigit = false;
+    x.Password.RequiredUniqueChars = 0;
+    x.Password.RequireLowercase = false;
+    x.Password.RequireNonAlphanumeric = false;
+    x.Password.RequireUppercase = false;
+})
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IUserHelper, UserHelper>();
+
+
+
 
 var app = builder.Build();
+
 
 SeedData(app);
 
@@ -52,10 +71,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
-
-
-
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()

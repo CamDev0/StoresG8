@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using System.ComponentModel.DataAnnotations;
 
@@ -14,11 +18,8 @@ namespace StoresG8.Shared.Entities
         public string Name { get; set; } = null!;
 
 
-
         public ICollection<ProductCategory>? ProductCategories { get; set; }
-
-        [Display(Name = "Productos")]
-        public int ProductCategoriesNumber => ProductCategories == null ? 0 : ProductCategories.Count;
 
     }
 }
+

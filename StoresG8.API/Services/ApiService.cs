@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using StoresG8.Shared.Responses;
-using StoresG8.API.Services.Stores.API.Services;
 
-namespace Stores.API.Services
+
+namespace StoresG8.API.Services
 {
     public class ApiService : IApiService
     {

@@ -1,8 +1,6 @@
-﻿namespace StoresG8.API.Services
-{
-    using StoresG8.Shared.Responses;
+﻿   using StoresG8.Shared.Responses;
 
-    namespace Stores.API.Services
+    namespace StoresG8.API.Services
     {
         public interface IApiService
         {
@@ -10,4 +8,4 @@
         }
     }
 
-}
+

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StoresG8.API.Data;
 using StoresG8.Shared.Entities;
 
-
 namespace StoresG8.API.Controllers
 {
     [ApiController]
