@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using StoresG8.Shared.DTOs;
 using StoresG8.Shared.Entities;
 
 namespace StoresG8.API.Helpers
@@ -14,5 +15,10 @@ namespace StoresG8.API.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+
+        Task<SignInResult> LoginAsync(LoginDTO model);
+
+        Task LogoutAsync();
+
     }
 }

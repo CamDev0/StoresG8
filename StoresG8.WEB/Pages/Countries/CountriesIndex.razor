@@ -1,7 +1,9 @@
 ﻿@page "/countries"
+@using Microsoft.AspNetCore.Authorization;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
+@attribute [Authorize(Roles = "Admin")]
 
 <h3>Paises</h3>
 <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
@@ -121,6 +123,7 @@
             url1 = $"api/countries?page={page}&filter={Filter}";
             url2 = $"api/countries/totalPages?filter={Filter}";
         }
+
 
 
         var responseHppt = await repository.Get<List<Country>>(url1);
