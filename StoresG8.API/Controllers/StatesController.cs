@@ -8,8 +8,9 @@ using StoresG8.Shared.Entities;
 
 namespace StoresG8.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     [Route("/api/states")]
     public class StatesController : ControllerBase
     {

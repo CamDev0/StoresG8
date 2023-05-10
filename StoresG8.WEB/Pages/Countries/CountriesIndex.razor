@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Authorization;
 @inject IRepository repository
 @inject NavigationManager navigationManager
-@inject SweetAlertService swal
+@inject SweetAlertService sweetAlertService
 @attribute [Authorize(Roles = "Admin")]
 
 <h3>Paises</h3>
@@ -124,17 +124,25 @@
             url2 = $"api/countries/totalPages?filter={Filter}";
         }
 
+try
+        {
+            var responseHppt = await repository.Get<List<Country>>(url1);
+            var responseHppt2 = await repository.Get<int>(url2);
+            Countries = responseHppt.Response!;
+            totalPages = responseHppt2.Response!;
+        }
+        catch (Exception ex)
+        {
 
+            await sweetAlertService.FireAsync("Error", ex.Message, SweetAlertIcon.Error);
+        }
 
-        var responseHppt = await repository.Get<List<Country>>(url1);
-        var responseHppt2 = await repository.Get<int>(url2);
-        Countries = responseHppt.Response!;
-        totalPages = responseHppt2.Response!;
+       
     }
 
     private async Task Delete(Country country)
     {
-        var result = await swal.FireAsync(new SweetAlertOptions
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
                 Text = "¿Esta seguro que quieres borrar el registro?",
@@ -160,7 +168,7 @@
             else
             {
                 var mensajeError = await responseHTTP.GetErrorMessageAsync();
-                await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+                await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
             }
         }
         else
