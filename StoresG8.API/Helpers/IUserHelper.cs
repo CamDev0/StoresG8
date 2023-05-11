@@ -16,9 +16,12 @@ namespace StoresG8.API.Helpers
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
 
+
+
         Task<SignInResult> LoginAsync(LoginDTO model);
 
         Task LogoutAsync();
 
     }
 }
+

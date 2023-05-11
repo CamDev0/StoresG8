@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StoresG8.API.Data;
 using StoresG8.Shared.Entities;
-
+using StoresG8.API.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace StoresG8.API.Controllers
 {
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-
     [Route("/api/states")]
     public class StatesController : ControllerBase
     {
@@ -41,6 +39,17 @@ namespace StoresG8.API.Controllers
             }
 
             return Ok(state);
+        }
+
+
+
+        [HttpGet("full")]
+        public async Task<ActionResult> GetFull()
+        {
+            return Ok(await _context.States
+                .Include(x => x.Cities!)
+               
+                .ToListAsync());
         }
 
         [HttpPost]
@@ -104,6 +113,17 @@ namespace StoresG8.API.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+
+
+        [AllowAnonymous]
+        [HttpGet("combo/{countryId:int}")]
+        public async Task<ActionResult> GetCombo(int countryId)
+        {
+            return Ok(await _context.States
+                .Where(x => x.CountryId == countryId)
+                .ToListAsync());
+        }
+
     }
 }
-

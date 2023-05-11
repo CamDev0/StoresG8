@@ -1,10 +1,11 @@
-﻿
-using StoresG8.Shared.DTOs;
+﻿using StoresG8.Shared.DTOs;
 
 namespace StoresG8.API.Helpers
 {
     public static class QueryableExtensions
     {
+
+        
         public static IQueryable<T> Paginate<T>(this IQueryable<T> queryable,
             PaginationDTO pagination)
         {

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using StoresG8.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StoresG8.Shared.Entities
 {
@@ -31,7 +33,6 @@ namespace StoresG8.Shared.Entities
 
         [Display(Name = "Tipo de usuario")]
         public UserType UserType { get; set; }
-
         public City? City { get; set; }
 
         [Display(Name = "Ciudad")]

@@ -9,3 +9,4 @@ namespace StoresG8.Shared.DTOs
         public DateTime Expiration { get; set; }
     }
 }
+

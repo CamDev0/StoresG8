@@ -46,19 +46,17 @@ namespace StoresG8.API.Helpers
         public async Task<User> GetUserAsync(string email)
         {
             var user = await _context.Users
-        .Include(u => u.City!)
-        .ThenInclude(c => c.State!)
-        .ThenInclude(s => s.Country!)
-        .FirstOrDefaultAsync(u => u.Email! == email);
+                .Include(u => u.City!)
+                .ThenInclude(c => c.State!)
+                .ThenInclude(s => s.Country!)
+                .FirstOrDefaultAsync(x => x.Email == email);
             return user!;
-
         }
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
         {
             return await _userManager.IsInRoleAsync(user, roleName);
         }
-
 
         public async Task<SignInResult> LoginAsync(LoginDTO model)
         {
@@ -73,3 +71,4 @@ namespace StoresG8.API.Helpers
 
     }
 }
+

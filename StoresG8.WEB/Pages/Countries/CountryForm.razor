@@ -1,7 +1,6 @@
-﻿
-@inject SweetAlertService swal
+﻿@inject SweetAlertService swal
 
-<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -12,7 +11,11 @@
             <ValidationMessage For="@(() => Country.Name)" />
         </div>
     </div>
+
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+    <button class="btn btn-success" type="button" @onclick="ReturnAction">Regresar</button>
+        <button class="btn btn-info" type="reset" >Limpiar</button>
+
 </EditForm>
 
 @code {
@@ -56,8 +59,7 @@
                 Title = "Confirmación",
                 Text = "¿Deseas abandonar la página y perder los cambios?",
                 Icon = SweetAlertIcon.Warning,
-                ShowCancelButton = true,
-              
+                ShowCancelButton = true
             });
 
         var confirm = !string.IsNullOrEmpty(result.Value);
@@ -70,4 +72,3 @@
         context.PreventNavigation();
     }
 }
-

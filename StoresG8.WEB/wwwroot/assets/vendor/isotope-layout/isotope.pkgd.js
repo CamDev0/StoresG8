@@ -74,7 +74,7 @@ function jQueryBridget( namespace, PluginClass, $ ) {
   }
 
   // make jQuery plugin
-  $.fn[ namespace ] = function( arg0 /*, arg1 */ ) {
+  $.fn[ namespace ] = function( arg0 /*, arG8 */ ) {
     if ( typeof arg0 == 'string' ) {
       // method call $().plugin( 'methodName', { options } )
       // shift arguments by 1
@@ -353,7 +353,7 @@ function getStyle( elem ) {
   if ( !style ) {
     logError( 'Style returned ' + style +
       '. Are you running this code in a hidden iframe on Firefox? ' +
-      'See https://bit.ly/getsizebug1' );
+      'See https://bit.ly/getsizebuG8' );
   }
   return style;
 }
