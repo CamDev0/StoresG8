@@ -76,6 +76,8 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
+builder.Services.AddScoped<IFileStorage, FileStorage>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
     {
@@ -86,7 +88,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
         ClockSkew = TimeSpan.Zero
     });
-
 
 
 
